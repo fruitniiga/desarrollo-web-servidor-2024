@@ -24,6 +24,10 @@
                 <td><a href="fechas.php">fechas.php</a></td>
                 <td>Ejercicio de fechas</td>
             </tr>
+            <tr>
+                <td><a href="ejercicios.php">ejercicios.php</a></td>
+                <td>Ejercicio php</td>
+            </tr>
         </tbody>
     </table>
 </body>

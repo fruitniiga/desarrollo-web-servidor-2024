@@ -7,6 +7,9 @@
 </head>
 <body>
     <?php
+    error_reporting( E_ALL );
+    ini_set( "display_errors", 1 ); 
+
     $numero = "2";
 
     if($numero == 2)// En php se pueden comparar numeros string con int
@@ -55,6 +58,17 @@
             echo "Hoy no tenemos clase y es $dia";
     }
 
+    $dia_espanol = match($dia){
+        "Monday" => "Lunes",
+        "Tuesday" => "Martes",
+        "Wednesday" => "Miercoles",
+        "Thursday" => "Jueves",
+        "Friday" => "Viernes",
+        "Saturday" => "Sabado",
+        "Sunday" => "Domingo"
+    };
+
+    echo "<h3>$dia_espanol</h3>";
     ?>
 </body>
 </html>
