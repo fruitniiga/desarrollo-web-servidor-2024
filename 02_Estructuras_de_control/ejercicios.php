@@ -51,15 +51,17 @@
 
         echo "<h3>$dia $diaNumero de $mes de $ano</h3>";
 
+        echo "<h1>Ejercicio 2</h1>";
         //2.
         $i = 0;
         while ($i <= 100) {
             if ($i % 3 == 0) {
-                echo "El numero: $i es multiplo de 3";
+                echo "<p>El numero: $i es multiplo de 3</p>";
             }
             $i++;
         }
 
+        echo "<h1>Ejercicio 3</h1>";
         //3.
         $suma = 0;
         for ($i=0; $i < 20; $i++) { 
@@ -67,14 +69,36 @@
                 $suma += $i;
             }
         }
-        echo "La suma de todos los numeros pares de 1 a 20 es $suma";
+        echo "<p>La suma de todos los numeros pares de 1 a 20 es $suma</p>";
 
+        echo "<h1>Ejercicio 4</h1>";
         //4.
         $factorial = 1;
         for ($i=1; $i <= 6; $i++) { 
             $factorial *= $i;
         }
-        echo "El factorial de 6 es $factorial";
+        echo "<p>El factorial de 6 es $factorial</p>";
+
+        //No para hasta que te saque 50 primos.
+        $numero = 2;
+        $numerosPrimos = 0;
+
+        echo "<ol>";
+        while($numerosPrimos < 50){
+            $esPrimo = true;
+            for ($i=2; $i < $numero; $i++) { 
+                if ($numero % $i == 0) {
+                    $esPrimo = false;
+                    break;
+                }
+            }
+            if ($esPrimo) {
+                $numerosPrimos++;
+                echo "<li>$numero</li>";
+            }
+            $numero++;
+        }
+        echo "</ol>";
 
 //Git fetch lo que hace es descargarse la informacion de los cambios de github
 //Git status para ver lo que hay que cambiar y luego el pull
