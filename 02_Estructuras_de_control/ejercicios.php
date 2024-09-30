@@ -18,41 +18,66 @@
 
     EJERCICIO 4: CALCULAR EL FACTORIAL DE 6 CON WHILE
 -->
+    <?php
 
+        $dia = date("N");
+        $dia = match ($dia) {
+            "1" => "Lunes",
+            "2" => "Martes",
+            "3" => "Miercoles",
+            "4" => "Jueves",
+            "5" => "Viernes",
+            "6" => "Sabado",
+            "7" => "Domingo"
+        };
 
-<?php
+        $diaNumero = date("j");
+        $mes = date("n");
+        $mes = match ($mes) {
+            "1" => "Enero",
+            "2" => "Febrero",
+            "3" => "Marzo",
+            "4" => "Abril",
+            "5" => "Mayo",
+            "6" => "Junio",
+            "7" => "Julio",
+            "8" => "Agosto",
+            "9" => "Septiembre",
+            "10" => "Octubre",
+            "11" => "Noviembre",
+            "12" => "Diciembre"
+        };
+        $ano = date("Y");
 
-$dia = date("N");
-$dia = match ($dia) {
-    "1" => "Lunes",
-    "2" => "Martes",
-    "3" => "Miercoles",
-    "4" => "Jueves",
-    "5" => "Viernes",
-    "6" => "Sabado",
-    "7" => "Domingo"
-};
+        echo "<h3>$dia $diaNumero de $mes de $ano</h3>";
 
-$diaNumero = date("j");
-$mes = date("n");
-$mes = match ($mes) {
-    "1" => "Enero",
-    "2" => "Febrero",
-    "3" => "Marzo",
-    "4" => "Abril",
-    "5" => "Mayo",
-    "6" => "Junio",
-    "7" => "Julio",
-    "8" => "Agosto",
-    "9" => "Septiembre",
-    "10" => "Octubre",
-    "11" => "Noviembre",
-    "12" => "Diciembre"
-};
-$ano = date("Y");
+        //2.
+        $i = 0;
+        while ($i <= 100) {
+            if ($i % 3 == 0) {
+                echo "El numero: $i es multiplo de 3";
+            }
+            $i++;
+        }
 
-echo "<h3>$dia $diaNumero de $mes de $ano</h3>";
+        //3.
+        $suma = 0;
+        for ($i=0; $i < 20; $i++) { 
+            if ($i % 2 == 0) {
+                $suma += $i;
+            }
+        }
+        echo "La suma de todos los numeros pares de 1 a 20 es $suma";
 
-?>
+        //4.
+        $factorial = 1;
+        for ($i=1; $i <= 6; $i++) { 
+            $factorial *= $i;
+        }
+        echo "El factorial de 6 es $factorial";
+
+//Git fetch lo que hace es descargarse la informacion de los cambios de github
+//Git status para ver lo que hay que cambiar y luego el pull
+    ?>
 </body>
 </html>
