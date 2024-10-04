@@ -101,5 +101,16 @@
              <?php } ?>
         </tbody>
     </table>
+     <?php
+        /**
+         * Insertar dos nuevos estudiantes, con notas aleatorias entre 0 y 10
+         * 
+         * borra un estudiante (el que peor os caiga) por la clave
+         * 
+         * MOstrar en una tabla todo ordenado por los nombres en orden alfabeticamente inverso
+         * 
+         * Mostrar en una nueva tabla todo ordenado por la nota de 10 a 0 (orden inverso)
+        */
+     ?>
 </body>
 </html>
