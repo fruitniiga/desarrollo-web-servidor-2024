@@ -35,6 +35,8 @@
             - COLUMNA 3: SI NOTA < 5, SUSPENSO, ELSE, APROBADO y que salga 
             verde si estas aprobado o rojo suspenso
     -->
+
+    <!-- ESTO DE LAS TABLAS CAE SI O SI EN LOS EXAMENES -->
     <?php
     echo "<h1>Ejercicio 1</h1>";
         $asignaturas = [
@@ -54,6 +56,7 @@
         </thead>
         <tbody>
             <?php
+                asort($asignaturas);//ordena ascendentemente y guardando la clave
                 foreach ($asignaturas as $asignatura => $profesor) { ?>
                     <tr>
                         <td><?php echo "$asignatura"; ?></td>
