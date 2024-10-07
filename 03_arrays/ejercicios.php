@@ -111,6 +111,37 @@
          * 
          * Mostrar en una nueva tabla todo ordenado por la nota de 10 a 0 (orden inverso)
         */
+
+        // Insertar estudiantes
+        $alumnos["Jose"] = rand(0, 10);
+        $alumnos["Ignacio"] = rand(0, 10);
+
+        // Borrar estudiante
+        unset($alumnos["Luis"]);
+
+        // Ordenar por nombre
+        ksort($alumnos);
+        
+
+        // Mostrar en una tabla de manera inversa
+        krsort($alumnos);
+        echo "<br><br>";
+        echo "<table>";
+        echo "<thead><th>Alumno</th><th>Nota</th></thead>";
+        foreach ($alumnos as $alumno => $nota) {
+            echo "<tr><td>$alumno</td><td>$nota</td></tr>";
+        }
+        echo "</table>";
+
+        echo "<br><br>";
+        // Mostrar en una tabla de manera inversa por notas
+        arsort($alumnos);
+        echo "<table>";
+        echo "<thead><th>Alumno</th><th>Nota</th></thead>";
+        foreach ($alumnos as $alumno => $nota) {
+            echo "<tr><td>$alumno</td><td>$nota</td></tr>";
+        }
+        echo "</table>";
      ?>
 </body>
 </html>
