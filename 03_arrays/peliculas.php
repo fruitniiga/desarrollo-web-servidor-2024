@@ -36,6 +36,14 @@
          *      3.Por el titulo(todo alaveticamente, y el año del mas reciente al mas antiguo)
          * 
         */
+
+        $_categoria = array_column($peliculas, 0);
+        $_año = array_column($peliculas, 1);
+        $_titulo = array_column($peliculas, 2);
+        array_multisort($_categoria, SORT_ASC, 
+                        $_año, SORT_ASC, 
+                        $_titulo, SORT_ASC, 
+                        $peliculas);
     ?>
         <table>
         <thead>
@@ -43,16 +51,23 @@
                 <th>Titulo</th>
                 <th>Categoria</th>
                 <th>Año lanzamiento</th>
+                <th>Duracion</th>
+                <th>Tipo</th>
             </tr>
         </thead>
         <tbody>
             <?php
+                $duracion = 0;
                 foreach ($peliculas as $pelicula) {
+                    $duracion = rand(30, 240);
                     list($titulo, $categoria, $año) = $pelicula;//desconpongo un array n varias variables.
                     echo "<tr>";
                     echo "<td>$titulo</td>";
                     echo "<td>$categoria</td>";
                     echo "<td>$año</td>";
+                    echo "<td>$duracion</td>";
+                    if ($duracion >= 60) echo "<td>Largometraje</td>";
+                    else echo "<td>Cortometraje</td>";
                     echo "</tr>";
                 }
             ?>
