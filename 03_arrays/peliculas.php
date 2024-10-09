@@ -37,9 +37,16 @@
          * 
         */
 
-        $_categoria = array_column($peliculas, 0);
-        $_año = array_column($peliculas, 1);
-        $_titulo = array_column($peliculas, 2);
+        //Asi se ponen nuevas columnas con nuevos datos
+        for ($i=0; $i < count($peliculas); $i++) { 
+            $peliculas[$i][3] = rand(30,240);
+            if ($peliculas[$i][3] >= 60) $peliculas[$i][4] = "Largometraje";
+            else $peliculas[$i][4] = "Cortometraje";
+        }
+
+        $_titulo = array_column($peliculas, 0);
+        $_categoria = array_column($peliculas, 1);
+        $_año = array_column($peliculas, 2);
         array_multisort($_categoria, SORT_ASC, 
                         $_año, SORT_ASC, 
                         $_titulo, SORT_ASC, 
@@ -57,17 +64,14 @@
         </thead>
         <tbody>
             <?php
-                $duracion = 0;
                 foreach ($peliculas as $pelicula) {
-                    $duracion = rand(30, 240);
-                    list($titulo, $categoria, $año) = $pelicula;//desconpongo un array n varias variables.
+                    list($titulo, $categoria, $año, $duracion, $tipo) = $pelicula;//desconpongo un array n varias variables.
                     echo "<tr>";
                     echo "<td>$titulo</td>";
                     echo "<td>$categoria</td>";
                     echo "<td>$año</td>";
                     echo "<td>$duracion</td>";
-                    if ($duracion >= 60) echo "<td>Largometraje</td>";
-                    else echo "<td>Cortometraje</td>";
+                    echo "<td>$tipo</td>";
                     echo "</tr>";
                 }
             ?>
