@@ -26,23 +26,30 @@
     </form>
 
     <?php
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $celsius = $_POST["cifra"];
-            $unidad = $_POST["unidad"];
-            $conversor = $_POST["conversor"];
-
-            $valor = $celsius;
-            $temperaturaConver = 0;
-
-            if ($unidad == "Fahrenheit") $valor = ($celsius - 32) * 5 / 9;
-            elseif ($unidad == "Kelvin") $valor = $celsius - 273.15;
-
-            if ($conversor == "Fahrenheit") $temperaturaConver = ($valor * 9 / 5) + 32;
-            elseif ($conversor == "Kelvin") $temperaturaConver = $valor + 273.15;
-            else $temperaturaConver = $valor;
-
-            echo "La temperatura de $celsius $unidad a $conversor es: $temperaturaConver";
-        }
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $temperatura = $_POST["temperatura"];
+        
+            $unidad_old = $_POST["unidad_old"];
+            $unidad_new = $_POST["unidad_new"];
+        
+            $celsius = 0;
+        
+            if ($unidad_old != $unidad_new) {
+              $resultado = match($unidad_old) {
+                "celsius" => $celsius = $temperatura,
+                "kelvin" => $celsius = $temperatura - 273.15,
+                "fahrenheit" => $celsius = ($temperatura - 32) * 5/9
+              };
+        
+              $resultado = match($unidad_new) {
+                "celsius" => $celsius,
+                "kelvin" => $celsius + 273.15,
+                "fahrenheit" => ($celsius * 9/5) + 32 
+              };
+              echo "<h2>$resultado</h2>";
+            }
+            else echo "<h2>$temperatura</h2>";
+          }
     ?>
 </body>
 </html>
