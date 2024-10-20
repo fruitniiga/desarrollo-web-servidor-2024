@@ -108,7 +108,6 @@
         </thead>
         <tbody>
                 <?php
-
                     foreach ($coches as $matricula => $coche) {
                         echo "<tr>";
                         echo "<td>$matricula</td>";
