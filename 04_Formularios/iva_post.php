@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iva</title>
+    <?php
+        error_reporting( E_ALL );
+        ini_set( "display_errors", 1 );
+
+        require ("../05_funciones/iva.php");
+    ?>
 </head>
 <body>
     <!--
@@ -29,16 +35,33 @@
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $precio = $_POST["Precio"];
             $iva = $_POST["iva"];
-            if ($precio != '' and $iva != '') {//control de que me metan algo vacio
-                $pvp = match ($iva) {
-                    "General" => $precio * 1.21,
-                    "Reducido" => $precio * 1.10,
-                    "Superreducido" => $precio * 1.04,
-                };
-                echo "<h3> El PVP es $pvp </h3>";
+            if($precio == '') {
+                echo "<p>El precio es obligatorio</p>";
+            } else {
+                if(filter_var($tmp_precio, FILTER_VALIDATE_FLOAT) === FALSE) {
+                    echo "<p>El precio debe ser un número</p>";
+                } else {
+                    if($precio < 0) {
+                        echo "<p>El precio debe ser mayor o igual que cero</p>";
+                    } else {
+                        $tmp_precio = $precio;
+                    }
+                }
             }
-            else {
-                echo "<p>Te faltan datos</p>";
+    
+            if($iva == '') {
+                echo "<p>El IVA es obligatorio</p>";
+            } else {
+                $valores_validos_iva = ["general", "reducido", "superreducido"];
+                if(!in_array($iva, $valores_validos_iva)) {
+                    echo "<p>El IVA solo puede ser: general, reducido, superreducido</p>";
+                } else {
+                    $tmp_iva = $iva;
+                }
+            }
+    
+            if(isset($tmp_precio) && isset($tmp_iva)) {
+                iva($tmp_precio, $tmp_iva);
             }
         }
     ?>

@@ -8,6 +8,8 @@
     <?php
         error_reporting( E_ALL );
         ini_set( "display_errors", 1 );
+
+        require ("../05_funciones/potencias.php");
     ?>
 </head>
 <body>
@@ -20,27 +22,49 @@
     </form>
     
     <?php
-        /***
-         * Crear un formulario que reciba dos parametros : Base y exponente
-         * 
-         * Cuando se envie el formulario, se calculara el resultado de elevar
-         * la base al exponente
-         * 
-         * EJEMPLOS:
-         * 2 elevado a 3 = 8 => 2x2x2 = 8
-         * 3 elevado a 2 = 9 => 3x3 = 9
-         */
-
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $base = $_POST["base"];
             $exponente = $_POST["exponente"];
             $solucion = 1;
 
-            for ($i=0; $i < $exponente; $i++) { 
-                $solucion = $solucion * $base;
+            if ($base != '') {//filtra la variable base y comprueba que es int
+                if (filter_var($base, FILTER_VALIDATE_INT) !== FALSE) {//si le pones solo un = detecta que 0 no es un numero, asi si lo detecta.
+                    $tmp_base = $base;
+                } else{
+                    echo "La base debe ser un numero";
+                }
+            } else{
+                echo "<p>La base es obligatoria</p>";
             }
-            
-            echo "<h1>$solucion</h1>";
+
+            //es lo mismo que lo de arriba pero planteado alrreves
+            /*if ($base == '') {
+                echo "<p>La base es obligatoria</p>";
+            } else{
+                if (filter_var($base, FILTER_VALIDATE_INT) === FALSE) {
+                    echo "La base debe ser un numero";
+                } else{
+                    $tmp_base = $base;
+                }
+            }*/
+
+            if ($exponente != '') {
+                if (filter_var($exponente, FILTER_VALIDATE_INT) !== FALSE) {
+                    if ($exponente >= 0) {
+                        $temp_exponente = $exponente;
+                    } else{
+                        echo "<p>El exponente debe ser mayor o igual a 0</p>";
+                    }
+                } else{
+                    echo "El exponente debe ser un numero";
+                }
+            } else{
+                echo "<p>El exponente es obligatoria</p>";
+            }
+
+            if (isset($temp_base) && isset($temp_exponente)) {
+                potencias($temp_base, $temp_exponente);
+            }
         }
     ?>
 </body>

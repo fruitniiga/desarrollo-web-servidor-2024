@@ -71,7 +71,30 @@
             $unidad_old = $_POST["unidad_old"];
             $unidad_new = $_POST["unidad_new"];
             
-            convertirTemperatura($temperatura, $unidad_old, $unidad_new);
+            if ($temperatura != '') {
+                if (is_numeric($temperatura)) {
+                    if ($unidad_old == "C" and $temperatura >= -273.15) {
+                        convertirTemperatura($temperatura, $unidad_old, $unidad_new);
+                    } elseif ($unidad_old == "C" and $temperatura < -273.15) {
+                        echo "<p>La temperatura no puede ser inferior a -273.15 C</p>";
+                    }
+                    if ($unidad_old == "K" and $temperatura >= 0) {
+                        convertirTemperatura($temperatura, $unidad_old, $unidad_new);
+                    } elseif ($unidad_old == "K" and $temperatura < 0) {
+                        echo "<p>La temperatura no puede ser inferior a 0 K</p>";
+                    }
+                    if ($unidad_old == "F" and $temperatura >= -459.67) {
+                        convertirTemperatura($temperatura, $unidad_old, $unidad_new);
+                    } elseif ($unidad_old == "F" and $temperatura < -459.67) {
+                        echo "<p>La temperatura no puede ser inferior a -459.67 F</p>";
+                    }
+                } else{
+                    echo "<p>La temperatura debe ser un nnumero</p>";
+                }
+            } else {
+                echo "<p>Falta la temperatura</p>";
+            }
+            
         }
     }
     //Hacer todos los formularios que hemos hecho dentro de un fichero en conjunto, y hacerlo con funciones/minimo 4
