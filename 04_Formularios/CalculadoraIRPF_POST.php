@@ -14,30 +14,40 @@
 
         require ("../05_funciones/irpf.php");
     ?>
+    <style>
+        .error{
+            color: red;
+            font-style: italic;
+        }
+    </style>
 </head>
 <body>
-    <form action="" method="post">
-        <input type="number" name="salario" placeholder="Salario">
-        <input type="submit" value="Calcular salario bruto">
-    </form>
     <?php
     if($_SERVER["REQUEST_METHOD"] == "POST") {
         $salario = $_POST["salario"];
 
         if ($salario != '') {
             if (filter_var($salario, FILTER_VALIDATE_FLOAT) != FALSE) {
-                $tmp_salario = $salario;
+                if ($salario > 0) $tmp_salario = $salario;
             } else{
-                echo "<p>El salario debe ser un numero</p>";
+                $err_salario = "<p>El salario debe ser un numero</p>";
             } 
         } else{
-            echo "<p>El salario es obligatorio</p>";
-        }
+            $err_salario = "<p>El salario es obligatorio</p>";
+        } 
+    }
+    ?>
 
-        if (isset($temp_salario)) {
+    <form action="" method="post">
+        <input type="number" name="salario" placeholder="Salario">
+        <?php if(isset($err_salario)) echo "<span class = 'error'>$err_salario</span>";?>
+        <input type="submit" value="Calcular salario bruto">
+    </form>
+
+    <?php
+    if (isset($temp_salario)) {
             irpf($salario);
         }
-    }
     ?>
 </body>
 </html>
