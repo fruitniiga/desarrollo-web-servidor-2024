@@ -29,11 +29,48 @@
                 if ($tmp_dni == '') {
                     $err_dni = "El DNI es obligatorio";
                 } else{
+                    $tmp_dni = strtoupper($tmp_dni);//ponemos la letra en mayuscula por si nos la meten en minuscula
                     $patron = "/^[0-9]{8}[A-Z]$/";// el $ y el ^ es para cerrar las expresiones regulares
                     if (!preg_match($patron, $tmp_dni)) {//esto ve si la variale tmp cumple el patron
                         $err_dni = "El DNI debe contener 8 numeros y 1 letra mayuscula";
                     }  else{
-                        $dni = $tmp_dni;
+                        $numero_dni = substr($tmp_dni,0,8);//Cojo los numeros del DNI
+                        $letra_dni = substr($tmp_dni,8,1);//Cojo la letra del DNI
+                    
+                        $resto_dni = $numero_dni % 23;
+                        $letra_correcta = match($resto_dni) {
+                            0 => "T",
+                            1 => "R",
+                            2 => "W",
+                            3 => "A",
+                            4 => "G",
+                            5 => "M",
+                            6 => "Y",
+                            7 => "F",
+                            8 => "P",
+                            9 => "D",
+                            10 => "X",
+                            11 => "B",
+                            12 => "N",
+                            13 => "J",
+                            14 => "Z",
+                            15 => "S",
+                            16 => "Q",
+                            17 => "V",
+                            18 => "H",
+                            19 => "L",
+                            20 => "C",
+                            21 => "K",
+                            22 => "E"
+                        };
+
+                        /* Otra manera de hacerlo mucho mas corto
+                        $letras_dni = "TRWAGMYFPDXBNJZSQVHLCKE";
+                        $letra_correcta = substr($letras_dni,$resto_dni,1);
+                        */
+
+                        if ($letra_dni != $letra_correcta) $err_dni = "La letra del DNI no es correcta";
+                        else $dni = $tmp_dni;
                     }
                 }
 
@@ -41,17 +78,26 @@
                 if ($tmp_fechaNacimiento == '') {
                     $err_fechaNacimiento = "La fecha de nacimiento es obligatoria";
                 } else{
-                    $patron = "/^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/(19|20)\d{2}$/";
+                    $patron = "/^[0-9]{4}\-[0-9]{2}\-[0-9]{2}$/";
                     if (!preg_match($patron, $tmp_fechaNacimiento)) {
-                        $err_fechaNacimiento = "Debes poner el formato: dd/mm/yyyy";
-                    }  else{
-                        $fechaNacimiento = $tmp_fechaNacimiento;
-                        // $nacimiento = strtotime($fechaNacimiento); // convierte la fecha de nacimiento a timestamp
-                        // $tiempoActual = time();
-                        // $edad = ($tiempoActual - $nacimiento) / (365.25 * 24 * 60 * 60); //calcula la edad en años
-                        // if ($edad < 18) {
-                        //     $err_fechaNacimiento = "Eres menor de edad";
-                        // }
+                        $err_fechaNacimiento = "Debes poner el formato: yyyy-mm-dd";
+                    }  
+                    else{
+                        $fecha_actual = date("Y-m-d");
+                        list($anno_actual,$mes_actual,$dia_actual) = explode('-', $fecha_actual);//convierto en tres variables en las que cada uno mete su parte correspondiente, la funcion en si devuelve un array
+                        list($anno,$mes,$dia) = explode('-',$tmp_fechaNacimiento);
+                        if($anno_actual - $anno <= 120 and $anno_actual - $anno > 0){
+                            $fechaNacimiento = $tmp_fechaNacimiento;
+                        }
+                        elseif($anno_actual - $anno > 121){
+                            $err_fecha_nacimiento = "No puedes tener más de 120 años";
+                        }
+                        elseif($anno_actual - $anno < 0){
+                            $err_fecha_nacimiento = "No puedes tener menos de 0 años";
+                        }
+                        elseif($anno_actual - $anno == 121){
+                            //hacer lo demas aqui
+                        }
                     }
                 }
 
@@ -59,11 +105,24 @@
                 if ($tmp_correo == '') {
                     $err_correo = "El correo es obligatorio";
                 } else{
-                    $patron = "/^[^@\\s]+@[^@\\s\\.]+\\.[^@\\s\\.]+$/";
+                    $patron = "/^[a-zA-Z0-9_\-.+]+@([a-zA-Z0-9-]+.)+[a-zA-Z]+$/";
                     if (!preg_match($patron, $tmp_correo)) {
                         $err_correo = "Debes poner bien el correo ej: example@gmail.com";
                     }  else{
-                        $correo = $tmp_correo;
+                        $palabras_baneadas = ["caca", "peo", "recorcholis", "caracoles", "repampanos"];
+                        
+                        $palabras_encontradas = "";
+                        foreach ($palabras_baneadas as $palabra_baneada){
+                            if (str_contains($tmp_correo,$palabra_baneada)) {
+                                $palabras_encontradas = " $palabra_baneada" . $palabras_encontradas;
+                            }
+                            if ($palabras_encontradas != '') {
+                                $err_correo = "No se permiten las palabras: $palabras_encontradas";
+                            }
+                            else{
+                                $correo = $tmp_correo;
+                            }
+                        }
                     }
                 }
 
@@ -151,5 +210,14 @@
         </form> 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <?php
+        if(isset($dni) && isset($correo) && isset($fechaNacimiento) && isset($usuario) && isset($nombre) && isset($apellidos)) { ?>
+            <h1><?php echo $dni ?></h1>
+            <h1><?php echo $correo ?></h1>
+            <h1><?php echo $fechaNacimiento ?></h1>
+            <h1><?php echo $usuario ?></h1>
+            <h1><?php echo $nombre ?></h1>
+            <h1><?php echo $apellidos ?></h1>
+    <?php } ?>
     </body>
 </html>
