@@ -46,6 +46,12 @@
                         $err_fechaNacimiento = "Debes poner el formato: dd/mm/yyyy";
                     }  else{
                         $fechaNacimiento = $tmp_fechaNacimiento;
+                        // $nacimiento = strtotime($fechaNacimiento); // convierte la fecha de nacimiento a timestamp
+                        // $tiempoActual = time();
+                        // $edad = ($tiempoActual - $nacimiento) / (365.25 * 24 * 60 * 60); //calcula la edad en años
+                        // if ($edad < 18) {
+                        //     $err_fechaNacimiento = "Eres menor de edad";
+                        // }
                     }
                 }
 
