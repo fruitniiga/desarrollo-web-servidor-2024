@@ -16,15 +16,24 @@
     </style>
 </head>
 <body>
+    <?php
+        function depurar(string $entrada) : string {//para que los parametros sean string y lo que salga sea string
+            $salida = htmlspecialchars($entrada);//esto nos pone en modo texto cualquier cosa por si nos mete scripts y demas
+            $salida = trim($salida); // esto lo que hace es quitar los espacios de los laterales
+            $salida = stripslashes($salida); // esto te quita muchos \ que te puedan hacer bugs dentro de la aplicacion.
+            $salida = preg_replace('!\s!', ' ', $salida); //esto nos quita todos los espacios sobrantes dentro de la cadena
+            return $salida;
+        }
+    ?>
     <div class="container">
         <?php
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                $tmp_dni = $_POST["dni"];
-                $tmp_fechaNacimiento = $_POST["fechaNacimiento"];
-                $tmp_correo = $_POST["correo"];
-                $tmp_usuario = $_POST["usuario"];
-                $tmp_nombre = $_POST["nombre"];
-                $tmp_apellidos = $_POST["apellidos"];
+                $tmp_dni = depurar($_POST["dni"]);
+                $tmp_fechaNacimiento = depurar($_POST["fechaNacimiento"]);
+                $tmp_correo = depurar($_POST["correo"]);
+                $tmp_usuario = depurar($_POST["usuario"]);
+                $tmp_nombre = depurar($_POST["nombre"]);
+                $tmp_apellidos = depurar($_POST["apellidos"]);
 
                 if ($tmp_dni == '') {
                     $err_dni = "El DNI es obligatorio";
@@ -86,17 +95,35 @@
                         $fecha_actual = date("Y-m-d");
                         list($anno_actual,$mes_actual,$dia_actual) = explode('-', $fecha_actual);//convierto en tres variables en las que cada uno mete su parte correspondiente, la funcion en si devuelve un array
                         list($anno,$mes,$dia) = explode('-',$tmp_fechaNacimiento);
-                        if($anno_actual - $anno <= 120 and $anno_actual - $anno > 0){
-                            $fechaNacimiento = $tmp_fechaNacimiento;
-                        }
-                        elseif($anno_actual - $anno > 121){
-                            $err_fecha_nacimiento = "No puedes tener más de 120 años";
-                        }
-                        elseif($anno_actual - $anno < 0){
-                            $err_fecha_nacimiento = "No puedes tener menos de 0 años";
-                        }
-                        elseif($anno_actual - $anno == 121){
-                            //hacer lo demas aqui
+                        
+                        if($anno_actual - $anno < 18) {
+                            $err_fechaNacimiento = "No puedes ser menor de edad";
+                        }elseif($anno_actual - $anno == 18) {
+                            if($mes_actual - $mes < 0) {
+                                $err_fechaNacimiento = "No puedes ser menor de edad";
+                            }elseif($mes_actual - $mes == 0) {
+                                if($dia_actual - $dia < 0) {
+                                    $err_fechaNacimiento = "No puedes ser menor de edad";
+                                }else {
+                                    $fechaNacimiento = $tmp_fechaNacimiento;
+                                }
+                            }elseif($mes_actual - $mes > 0) {
+                                $fechaNacimiento = $tmp_fechaNacimiento;
+                            } 
+                        }elseif($anno_actual - $anno > 121) {
+                            $err_fechaNacimiento = "No puedes tener mas de 120 años";
+                        } elseif($anno_actual - $anno == 121) {
+                            if($mes_actual - $mes > 0) {
+                                $err_fechaNacimiento = "No puedes tener mas de 120 años";
+                            } elseif($mes_actual - $mes == 0) {
+                                if($dia_actual - $dia >= 0) {
+                                    $err_fechaNacimiento = "No puedes tener mas de 120 años";
+                                } else {
+                                    $fechaNacimiento = $tmp_fechaNacimiento;
+                                }
+                            } elseif($mes_actual - $mes < 0){
+                                $fechaNacimiento = $tmp_fechaNacimiento;
+                            } 
                         }
                     }
                 }

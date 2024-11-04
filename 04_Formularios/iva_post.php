@@ -46,11 +46,11 @@
             }
     
             if($iva == '') {
-                $err_iva "<p>El IVA es obligatorio</p>";
+                $err_iva = "<p>El IVA es obligatorio</p>";
             } else {
                 $valores_validos_iva = ["general", "reducido", "superreducido"];
                 if(!in_array($iva, $valores_validos_iva)) {
-                    $err_iva "<p>El IVA solo puede ser: general, reducido, superreducido</p>";
+                    $err_iva = "<p>El IVA solo puede ser: general, reducido, superreducido</p>";
                 } else {
                     $tmp_iva = $iva;
                 }
