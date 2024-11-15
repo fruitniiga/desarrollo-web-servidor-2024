@@ -28,8 +28,7 @@
     <?php
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $precio = $_POST["Precio"];
-            if (isset($_POST["iva"])) $iva = $_POST["iva"];//comprobamos esto para que tenga que meterte algo si o si y si no lo manda vacio
-            else $iva = "";
+            
             
             if($precio == '') {
                 $err_precio = "<p>El precio es obligatorio</p>";
@@ -44,7 +43,11 @@
                     }
                 }
             }
-    
+
+
+            if (isset($_POST["iva"])) $iva = $_POST["iva"];//comprobamos esto para que tenga que meterte algo si o si y si no lo manda vacio
+            else $iva = "";
+            
             if($iva == '') {
                 $err_iva = "<p>El IVA es obligatorio</p>";
             } else {
