@@ -31,6 +31,8 @@ str_contains($cadena, $buscar);
 	--> Busca el contenido de la variable buscar en la cadena;
 is_numeric($variable);
 	--> Ve si la variable es numerica
+ucwords($variable);
+	--> Convierte la primera letra de cada palabra en una cadena de texto
 
 function depurar(string $entrada) : string {  --> Para que los parametros sean string y lo que salga sea string.
 	$salida = htmlspecialchars($entrada);  --> Esto nos pone en modo texto cualquier cosa por si nos mete scripts y demas.
