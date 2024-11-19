@@ -34,7 +34,7 @@
             
             
             $tmp_fecha_publicacion = depurar($_POST["fecha_publicacion"]);
-            //$tmp_sinopsis = depurar($_POST["sinopsis"]);
+            $tmp_sinopsis = depurar($_POST["sinopsis"]);
 
             if ($tmp_titulo == ""){
                 $err_titulo = "El titulo es obligatorio";
@@ -118,7 +118,7 @@
             }
 
 
-            /*if ($tmp_sinopsis == ""){
+            if ($tmp_sinopsis == ""){
                 $err_sinopsis = "";
             } 
             else{
@@ -132,7 +132,7 @@
                     }
                     else $sinopsis = ucwords(strtolower($tmp_sinopsis));
                 }
-            }*/
+            }
         }
     ?>
 
