@@ -26,6 +26,7 @@
          * El resultado se almacena $resultado, que es un objeto con una estructura parecida a los arrays
          */
     ?>
+    <a class="btn btn-secondary" href="nuevo_anime.php">Crear nuevo anime</a>
     <table class="table table-striped table-hover">
         <thead class="table-dark">
             <tr>
@@ -33,20 +34,25 @@
                 <th>Estudio</th>
                 <th>Año</th>
                 <th>Numero de temporadas</th>
+                <th>Imagen</th>
             </tr>
         </thead>
         <tbody>
-            <?php
-            //fila es un array unidimensional aqui, pero no es un array es un objeto
-                while ($fila = $resultado -> fetch_assoc()) {// trata el resultado como un array asociativo
-                    echo"<tr>";
-                    echo "<td>" . $fila["titulo"] . "</td>";
-                    echo "<td>" . $fila["nombre_estudio"] . "</td>";
-                    echo "<td>" . $fila["anno_estreno"] . "</td>";
-                    echo "<td>" . $fila["num_temporadas"] . "</td>";
-                    echo "</tr>";
-                }
-            ?>
+        <?php
+            while ($fila = $resultado -> fetch_assoc()) {
+                echo "<tr>";
+                echo "<td>" . $fila["titulo"] . "</td>";
+                echo "<td>" . $fila["nombre_estudio"] . "</td>";
+                echo "<td>" . $fila["anno_estreno"] . "</td>";
+                echo "<td>" . $fila["num_temporadas"] . "</td>";
+                ?>
+                <td>  
+                    <img width="100" height="200" src="<?php echo $fila["imagen"] ?>">
+                </td>
+                <?php
+                echo "</tr>";
+            }
+        ?>
         </tbody>
     </table>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
