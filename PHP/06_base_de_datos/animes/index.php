@@ -18,6 +18,13 @@
     </div>
     <h1>Tabla de animes</h1>
     <?php
+        if($_SERVER["REQUEST_METHOD"] == "POST"){
+            $id_anime = $_POST["id_anime"];
+            //Borrar el anime
+            $sql = "DELETE FROM animes WHERE id_anime = $id_anime";
+            $_conexion -> query($sql);
+        }
+
         $sql = "SELECT * FROM animes";
         $resultado = $_conexion -> query($sql);
         /***
@@ -35,6 +42,8 @@
                 <th>Año</th>
                 <th>Numero de temporadas</th>
                 <th>Imagen</th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -48,6 +57,15 @@
                 ?>
                 <td>  
                     <img width="100" height="200" src="<?php echo $fila["imagen"] ?>">
+                </td>
+                <td>
+                    <a class="btn btn-primary" href="ver_anime.php?id_anime=<?php echo $fila["id_anime"] ?>">Editar</a>
+                </td>
+                <td>
+                    <form action="" method="post">
+                        <input type="hidden" name="id_anime" value="<?php echo $fila["id_anime"] ?>">
+                        <input class="btn btn-danger" type="submit" value="borrar">
+                    </form>
                 </td>
                 <?php
                 echo "</tr>";
