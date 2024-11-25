@@ -53,6 +53,17 @@ COMMIT;
 
 -- Se realiza como bloque hace el commit si esta todo bien, si da error no se guarda
 
+USE animes_bd;
 
+ALTER TABLE animes ADD COLUMN imagen VARCHAR(40);
 
+SELECT * FROM animes;
 
+USE animes_bd;
+
+CREATE TABLE usuarios (
+	usuario VARCHAR(15) PRIMARY KEY,
+    contrasena VARCHAR(255)
+);
+
+select * from usuarios;
