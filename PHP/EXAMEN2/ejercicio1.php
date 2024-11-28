@@ -38,7 +38,7 @@
 
             if ($tmp_titulo == ""){
                 $err_titulo = "El titulo es obligatorio";
-            } 
+            }
             else{
                 if (strlen($tmp_titulo) < 1 or strlen($tmp_titulo) > 40){
                     $err_titulo = "El titulo debe contener entre 1 y 40 caracteres.";

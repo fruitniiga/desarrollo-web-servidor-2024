@@ -10,13 +10,13 @@
 
         require('../util/conexion.php');
 
-        session_start();
+        /* session_start();
         if (isset($_SESSION["usuario"])) {
             echo "<h2>Bienvenid@ " . $_SESSION["usuario"] .  "</h2>";
         }else{
             header("location: usuario/iniciar_sesion.php");
             exit;
-        }
+        } */
     ?>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
@@ -25,24 +25,27 @@
 
     </div>
     <a class="btn btn-warning" href="usuario/cerrar_sesion.php">Cerrar sesion</a>
+    <br><br>
     <h1>Tabla de productos</h1>
     <?php
         if($_SERVER["REQUEST_METHOD"] == "POST"){
-            $categoria = $_POST["categoria"];
+            $id_producto = $_POST["id_producto"];
             //Borrar el producto
-            $sql = "DELETE FROM categorias WHERE categoria = $categoria";
+            $sql = "DELETE FROM productos WHERE id_producto = $id_producto";
             $_conexion -> query($sql);
         }
 
-        $sql = "SELECT * FROM categorias";
+        $sql = "SELECT * FROM productos";
         $resultado = $_conexion -> query($sql);
     ?>
-    <a class="btn btn-secondary" href="nueva_categoria.php">Crear nueva categoria</a>
+    <a class="btn btn-secondary" href="nuevo_producto.php">Crear nuevo producto</a>
+    <br><br><br><br>
     <table class="table table-striped table-hover">
         <thead class="table-dark">
             <tr>
                 <th>Nombre</th>
                 <th>Precio</th>
+                <th>Categoria</th>
                 <th>Stock</th>
                 <th>Imagen</th>
                 <th>Descripcion</th>
@@ -66,11 +69,11 @@
                 echo "<td>" . $fila["descripcion"] . "</td>";
                 ?>
                 <td>
-                    <a class="btn btn-primary" href="editar_categoria.php?id_categoria=<?php echo $fila["id_producto"] ?>">Editar categoria</a>
+                    <a class="btn btn-primary" href="editar_producto.php?id_producto=<?php echo $fila["id_producto"] ?>">Editar producto</a>
                 </td>
                 <td>
                     <form action="" method="post">
-                        <input type="hidden" name="id_anime" value="<?php echo $fila["id_anime"] ?>">
+                        <input type="hidden" name="id_producto" value="<?php echo $fila["id_producto"] ?>">
                         <input class="btn btn-danger" type="submit" value="borrar">
                     </form>
                 </td>

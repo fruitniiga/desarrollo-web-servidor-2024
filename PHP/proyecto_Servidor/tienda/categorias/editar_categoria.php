@@ -36,10 +36,14 @@
             $categoria = $_POST["categoria"];
             $descripcion = $_POST["descripcion"];
 
-            $sql = "UPDATE categorias SET descripcion = '$descripcion' 
-            WHERE categoria = '$categoria'
-            ";
-            $_conexion -> query($sql);
+            if (strlen($descripcion) > 255) {
+                $err_descripcion = "La descripcion no puede ser mayor a 255 carecteres.";
+            }
+            else{
+                $sql = "UPDATE categorias SET descripcion = '$descripcion' 
+                WHERE categoria = '$categoria'";
+                $_conexion -> query($sql);
+            }   
         }
     ?>
     <form class="col-4" action="" method="post" enctype="multipart/form-data">
@@ -50,6 +54,7 @@
             <div class="mb-3">
                 <label class="form-label">Descripción</label>
                 <textarea class="form-control" name="descripcion" rows="5" value="<?php echo $descripcion ?>"><?php echo $descripcion ?></textarea>
+                <?php if(isset($err_descripcion)) echo "<span class='error'>$err_descripcion</span>" ?>
             </div>
             <div>
                 <input type="hidden" name="categoria" value="<?php echo $categoria ?>">
