@@ -41,10 +41,9 @@
             if (strlen($categoria) < 2) {
                 $confirmar = false;
                 $err_categoria = "La categoria tiene que tener minimo 2 caracteres";
-            }
-            if (!preg_match($patron, $categoria)) {
+            } else if (!preg_match($patron, $categoria)) {
                 $confirmar = false;
-                $err_titulo = "La categoria solo puede tener letras y espacios";
+                $err_categoria = "La categoria solo puede tener letras y espacios";
             }
             if (strlen($descripcion) > 255) {
                 $confirmar = false;
